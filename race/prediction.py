@@ -1,20 +1,19 @@
 import random
 import copy
-import collections
 
 
 TOTAL_STEP_TO_WIN = 120
 TOTAL_ROUND = 10000
 
 racers = {
-    "一號": 
-        [3,4], 
-    "二號": 
-        [1,2,6], 
-    "三號": 
-        [3,5,6], 
-    "四號": 
-        [4,5], 
+    "一號":
+        [3,4],
+    "二號":
+        [1,2,6],
+    "三號":
+        [3,5,6],
+    "四號":
+        [4,5],
 }
 
 effects = {
@@ -22,7 +21,7 @@ effects = {
     "二號": [0,0,0,0,0,0],
     "三號": [0,0,0,0,0,0],
     "四號": [0,0,0,0,0,0],
-}  
+}
 
 bids = [4000, 10000, 100000, 20000]
 
@@ -73,6 +72,7 @@ def race(stepCounter):
                     extraStep = 1
                     step = 0
             stepCounter[key] += zero_if_negative(step + extraStep)
+
     return list(stepCounter.values())
 
 
@@ -85,7 +85,7 @@ def repeat_race(results):
         winner = max(step_counter, key=step_counter.get) if len(winner_list) == 1 else break_tie(winner_list)
         results[winner] += 1
     print("Average Steps: ", [round(sum(values)/round(TOTAL_ROUND),2) for values in zip(*list)])
-    return results 
+    return results
 
 
 def recommand_bid(results):
@@ -101,15 +101,3 @@ def recommand_bid(results):
         )
         bids.append(sum_bids*((p_-q_/b_)))
     return bids
-
-
-def run():
-    results = dict.fromkeys(racers, 0)
-    repeat_race(results)
-    print(results)
-    bid = recommand_bid(results)
-    return [results, bid]
-
-
-if __name__ == '__main__':
-    run()
