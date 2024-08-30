@@ -10,8 +10,6 @@ class RacePredictor(object):
     def __init__(self, data):
         self.data = data
         self.results = dict.fromkeys(data, 0)
-        self.step_counter = dict.fromkeys(data, 0)
-        self.effects_count = copy.deepcopy({k: v[1] for k, v in data.items()})
         self.effect_choices = {
                 0: [0, 1, 2],
                 1: [2, 3, 4],
@@ -39,36 +37,34 @@ class RacePredictor(object):
             winners = [k for k, v in overtime_stepcounter.items() if v == max_value]
         return max(overtime_stepcounter, key=overtime_stepcounter.get)
 
-    def race(self):
-        # TODO: effectsCount need to initialize the value each for loop
-        # TODO: step_counter need to initialize the value each for loop
-        # effectsCount = copy.deepcopy(effects)
-        while max(self.step_counter.values()) < TOTAL_STEP_TO_WIN:
+    def race(self, step_counter: dict) -> list:
+        effects_count = copy.deepcopy({k: v[1] for k, v in self.data.items()})
+        while max(step_counter.values()) < TOTAL_STEP_TO_WIN:
             for key, value in self.data.items():
                 step = random.choice(value[0])
                 extra_step = 0
-                if any(v != 0 for v in self.effects_count[key]):
+                if any(v != 0 for v in effects_count[key]):
                     effect = random.choices(
-                        population=[i for i, v in enumerate(self.effects_count[key]) if v != 0],
-                        weights=[v for i, v in enumerate(self.effects_count[key]) if v != 0]
+                        population=[i for i, v in enumerate(effects_count[key]) if v != 0],
+                        weights=[v for i, v in enumerate(effects_count[key]) if v != 0]
                     )[0]
-                    self.effects_count[key][effect] -= 1
+                    effects_count[key][effect] -= 1
                     if effect in self.effect_choices:
                         if effect == 5:
                             extra_step, step = self.effect_choices[5]()
                         else:
                             extra_step = self.effect_choices[effect] if isinstance(self.effect_choices[effect], list) else \
                             self.effect_choices[effect](value)
-                self.step_counter[key] += self.zero_if_negative(step + extra_step)
-        return list(self.step_counter.values())
+                step_counter[key] += self.zero_if_negative(step + extra_step)
+        return list(step_counter.values())
 
     def repeat_race(self):
         list = []
         for i in range(TOTAL_ROUND):
-            list.append(self.race())
-            winner_list = [k for k, v in self.step_counter.items() if v == max(self.step_counter.values())]
-            # TODO: debugging 永遠跳不進 self.break_tie
-            winner = max(self.step_counter, key=self.step_counter.get) if len(winner_list) == 1 else self.break_tie(winner_list)
+            step_counter = dict.fromkeys(self.data, 0)
+            list.append(self.race(step_counter))
+            winner_list = [k for k, v in step_counter.items() if v == max(step_counter.values())]
+            winner = max(step_counter, key=step_counter.get) if len(winner_list) == 1 else self.break_tie(winner_list)
             self.results[winner] += 1
         print("Average Steps: ", [round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*list)])
         return self.results
@@ -93,6 +89,7 @@ class RacePredictor(object):
         - prediction logics
         - response
         """
+        # TODO: return results to Front-end
         self.repeat_race()
         print(self.results)
         bid = self.recommend_bid()
