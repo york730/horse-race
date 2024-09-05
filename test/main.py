@@ -3,16 +3,7 @@ import unittest
 from race.predictor import RacePredictor
 from race.prediction import racers, repeat_race, recommand_bid
 
-test_data = {
-        "一號":
-            [[3, 4], [0, 0, 0, 0, 0, 0], 4000],
-        "二號":
-            [[1, 2, 6], [0, 0, 0, 0, 0, 0], 10000],
-        "三號":
-            [[3, 5, 6], [0, 0, 0, 0, 0, 0], 100000],
-        "四號":
-            [[4, 5], [0, 0, 0, 0, 0, 0], 20000],
-    }
+from test import test_data
 
 
 class TestPrediction(unittest.TestCase):

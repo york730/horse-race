@@ -23,6 +23,7 @@ class RacePredictor(object):
                 round(sum(self.bids) / bid, 2) if round(sum(self.bids) / bid, 2) < 99 else 99 for bid in self.bids
         ]
         self.sum_bids = sum(self.bids) if sum(self.bids) < 50000 else 50000
+        self.response = []
 
     @staticmethod
     def zero_if_negative(a):
@@ -67,10 +68,12 @@ class RacePredictor(object):
             winner = max(step_counter, key=step_counter.get) if len(winner_list) == 1 else self.break_tie(winner_list)
             self.results[winner] += 1
         print("Average Steps: ", [round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*list)])
+        self.response.append(f"Average Steps: {[round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*list)]}")
         return self.results
 
     def recommend_bid(self):
         p = [v for v in self.results.values()]
+        self.response.append(f"Bid_Rates: {self.bid_rates}")
         print("Bid_Rates: ", self.bid_rates)
         bids = []
         for i in range(4):
@@ -80,6 +83,7 @@ class RacePredictor(object):
             print(
                 f"Bid #{i + 1}: {int(self.sum_bids * ((p_ - q_ / b_))):>6} | Bid2 #{i + 1}: {int(self.sum_bids * p_):>6}"
             )
+            self.response.append(f"Bid #{i + 1}: {int(self.sum_bids * ((p_ - q_ / b_))):>6} | Bid2 #{i + 1}: {int(self.sum_bids * p_):>6}")
             bids.append(self.sum_bids * ((p_ - q_ / b_)))
         return bids
 
@@ -93,4 +97,5 @@ class RacePredictor(object):
         self.repeat_race()
         print(self.results)
         bid = self.recommend_bid()
-        return [self.results, bid]
+        # return [self.results, bid]
+        return self.response
