@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 
 from race.prediction import *
 from race.predictor import *
@@ -14,6 +15,14 @@ def home():
     return 'Hello, World!'
 
 
+@app.route('/test/predictor/')
+def test_predictor():
+    race_prediction = RacePredictor(test_data)
+    response = race_prediction.predict()
+    response = "\n".join(response)
+    return response
+
+
 @app.route('/api/prediction/')
 def prediction():
     # TODO: haven't process return data
@@ -21,13 +30,19 @@ def prediction():
     repeat_race(results)
     print(results)
     bid = recommand_bid(results)
-    return 'About'
+    return "Haven't finish the development!"
 
 
-@app.route('/api/predictor/')
+@app.route('/api/predictor/', methods=['POST'])
 def predictor():
-    # TODO: request: params should pass from Front-end
-    race_prediction = RacePredictor(test_data)
+    data = request.json
+    data = data.get("data")
+    race_prediction = RacePredictor(data)
     response = race_prediction.predict()
     response = "\n".join(response)
     return response
+
+
+# Debugging Mode
+if __name__ == '__main__':
+    app.run(host="127.0.0.1", port=8000)
