@@ -1,5 +1,6 @@
 import random
 import copy
+import asyncio
 
 TOTAL_STEP_TO_WIN = 120
 TOTAL_ROUND = 10000
@@ -18,6 +19,7 @@ class RacePredictor(object):
                 4: [-4, -3, -2],
                 5: (lambda: (1, 0))
             }
+        self.repeat_race_list = []
         self.bids = list(map(lambda x: x[2], data.values()))
         self.bid_rates = [
                 round(sum(self.bids) / bid, 2) if round(sum(self.bids) / bid, 2) < 99 else 99 for bid in self.bids
@@ -59,17 +61,18 @@ class RacePredictor(object):
                 step_counter[key] += self.zero_if_negative(step + extra_step)
         return list(step_counter.values())
 
-    def repeat_race(self):
-        list = []
-        # TODO: Yeah, maybe try to use async
-        for i in range(TOTAL_ROUND):
-            step_counter = dict.fromkeys(self.data, 0)
-            list.append(self.race(step_counter))
-            winner_list = [k for k, v in step_counter.items() if v == max(step_counter.values())]
-            winner = max(step_counter, key=step_counter.get) if len(winner_list) == 1 else self.break_tie(winner_list)
-            self.results[winner] += 1
-        print("Average Steps: ", [round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*list)])
-        self.response.append(f"Average Steps: {[round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*list)]}")
+    async def execute_round(self):
+        step_counter = dict.fromkeys(self.data, 0)
+        self.repeat_race_list.append(self.race(step_counter))
+        winner_list = [k for k, v in step_counter.items() if v == max(step_counter.values())]
+        winner = max(step_counter, key=step_counter.get) if len(winner_list) == 1 else self.break_tie(winner_list)
+        self.results[winner] += 1
+
+    async def repeat_race(self):
+        tasks = [self.execute_round() for i in range(TOTAL_ROUND)]
+        await asyncio.gather(*tasks)
+        print("Average Steps: ", [round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*self.repeat_race_list)])
+        self.response.append(f"Average Steps: {[round(sum(values) / round(TOTAL_ROUND), 2) for values in zip(*self.repeat_race_list)]}")
         return self.results
 
     def recommend_bid(self):
@@ -94,7 +97,8 @@ class RacePredictor(object):
         - prediction logics
         - response
         """
-        self.repeat_race()
+        asyncio.run(self.repeat_race())
+        # self.repeat_race()
         print(self.results)
         bid = self.recommend_bid()
         # return [self.results, bid]

@@ -1,4 +1,5 @@
 import unittest
+import asyncio
 
 from race.predictor import RacePredictor
 from race.prediction import racers, repeat_race, recommand_bid
@@ -49,7 +50,8 @@ class TestPredictor(unittest.TestCase):
             result (dict)
         """
         race_prediction = RacePredictor(test_data)
-        result = race_prediction.repeat_race()
+        result = asyncio.run(race_prediction.repeat_race())
+        # result = race_prediction.repeat_race()
         self.assertTrue(result.get("一號") < 5)
         self.assertTrue(result.get("二號") < 10)
         self.assertTrue(7000 < result.get("三號") < 8000)
