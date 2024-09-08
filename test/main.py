@@ -35,9 +35,12 @@ class TestPredictor(unittest.TestCase):
             list
         """
         race_prediction = RacePredictor(test_data)
-        race_prediction.race()
-        # TODO: assert
-        # self.assertEqual('foo'.upper(), 'FOO')
+        step_counter = dict.fromkeys(test_data, 0)
+        result = race_prediction.race(step_counter)
+        self.assertTrue(75 < result[0] <= 100)
+        self.assertTrue(50 < result[1] <= 100)
+        self.assertTrue(115 < result[2] <= 130)
+        self.assertTrue(99 < result[3] <= 130)
 
     def test_repeat_race(self):
         """
@@ -46,9 +49,11 @@ class TestPredictor(unittest.TestCase):
             result (dict)
         """
         race_prediction = RacePredictor(test_data)
-        race_prediction.repeat_race()
-        # TODO: assert
-        # self.assertEqual('foo'.upper(), 'FOO')
+        result = race_prediction.repeat_race()
+        self.assertTrue(result.get("一號") < 5)
+        self.assertTrue(result.get("二號") < 10)
+        self.assertTrue(7000 < result.get("三號") < 8000)
+        self.assertTrue(2000 < result.get("四號") < 3000)
 
     def test_recommend_bid(self):
         """
@@ -57,9 +62,11 @@ class TestPredictor(unittest.TestCase):
             bids (list)
         """
         race_prediction = RacePredictor(test_data)
-        race_prediction.recommend_bid()
-        # TODO: assert
-        # self.assertEqual('foo'.upper(), 'FOO')
+        bids = race_prediction.recommend_bid()
+        self.assertTrue(-1550 < bids[0] < -1400)
+        self.assertTrue(-4000 < bids[1] < -3500)
+        self.assertTrue(-40000 < bids[2] < -35000)
+        self.assertTrue(-8000 < bids[3] < -7000)
 
     def test_predict(self):
         """
@@ -69,8 +76,11 @@ class TestPredictor(unittest.TestCase):
         """
         race_prediction = RacePredictor(test_data)
         race_prediction.predict()
-        # TODO: assert
-        # self.assertEqual('foo'.upper(), 'FOO')
+        result = race_prediction.results
+        self.assertTrue(result.get('一號') < 100)
+        self.assertTrue(result.get('二號') < 100)
+        self.assertTrue(5000 < result.get('三號') < 10000)
+        self.assertTrue(2000 < result.get('四號')< 5000)
 
 
 if __name__ == '__main__':

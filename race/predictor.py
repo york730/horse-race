@@ -61,6 +61,7 @@ class RacePredictor(object):
 
     def repeat_race(self):
         list = []
+        # TODO: Yeah, maybe try to use async
         for i in range(TOTAL_ROUND):
             step_counter = dict.fromkeys(self.data, 0)
             list.append(self.race(step_counter))
@@ -93,9 +94,9 @@ class RacePredictor(object):
         - prediction logics
         - response
         """
-        # TODO: return results to Front-end
         self.repeat_race()
         print(self.results)
         bid = self.recommend_bid()
         # return [self.results, bid]
+        # TODO change return data structure if needed.
         return self.response
