@@ -1,38 +1,56 @@
+<!-- HTML -->
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
     <link rel="stylesheet" href="./web/index.css">
 </head>
 
 <body>
-    <h1>Horse Race Predictor</h1>
-    <!-- <div></div> 能用script方式先宣告然後渲染嗎？ -->
-    <div id="horseList"></div>
-    <h2>Competitors</h2>
-    <div>
-        <p>1</p>
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
+    <!-- CSS: 1. 先把整個網頁的內容都致中，用container包起來並用flex + column 直立去至中每個元素 -->
+    <div class="container">
+        <h1 class="heading-color">Horse Race Predictor</h1>
+        <!-- CSS: 2. 可選擇的馬選項 3*2 渲染，用 grid + col-3 方式 -->
+        <div id="horseList" class="horse-list"></div>
+        <h2 class="heading-color">Competitors</h2>
+        <!-- CSS: 3. 用flex的模式將賽道跟道具值形成一排。 -->
+        <div class="flex">
+            <p>1</p>
+            <!-- for loop 渲染時要戴id，才能去記錄使用者輸入的值要怎麼組成json body -->
+            <div class="flex flex-stretch">
+                <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
+                <input type="number" min="0" max="10" />
+                <input type="number" min="0" max="10" />
+                <input type="number" min="0" max="10" />
+                <input type="number" min="0" max="10" />
+                <input type="number" min="0" max="10" />
+            </div>
+            <div class="flex flex-stretch">
+            <input type="number" min="0" max="10" />
+            </div>
+        </div>
+
+        <div class="competitors-input-section">
+            <p>2</p>
+            <input type="number" min="0" max="10" />
+            <input type="number" min="0" max="10" />
+        </div>
+        <div class="competitors-input-section">
+            <p>3</p>
+            <input type="number" min="0" max="10" />
+            <input type="number" min="0" max="10" />
+        </div>
+        <div class="competitors-input-section">
+            <p>4</p>
+            <input type="number" min="0" max="10" />
+            <input type="number" min="0" max="10" />
+        </div>
+        <button id="submitBtn">Submit</button>
+        <h2 class="heading-color">Result</h2>
+        <div class="result" id="result"></div>
     </div>
-    <div>
-        <p>2</p>
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-    </div>
-    <div>
-        <p>3</p>
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-    </div>
-    <div>
-        <p>4</p>
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-        <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-    </div>
-    <button id="submitBtn">Submit</button>
-    <h2>Result</h2>
-    <div class="result" id="result"></div>
+    <!-- JS -->
     <script src="./web/script.js"></script>
 </body>
 </html>
