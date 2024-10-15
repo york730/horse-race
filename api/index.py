@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import request
 
+import json
+
 from race.prediction import *
 from race.predictor import *
 
@@ -35,7 +37,8 @@ def prediction():
 
 @app.route('/api/predictor/', methods=['POST'])
 def predictor():
-    data = request.json
+    # TODO: try remove no-cors and make response json.
+    data = json.loads(request.data)
     data = data.get("data")
     race_prediction = RacePredictor(data)
     response = race_prediction.predict()

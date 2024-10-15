@@ -15,36 +15,10 @@
         <div id="horseList" class="horse-list"></div>
         <h2 class="heading-color">Competitors</h2>
         <!-- CSS: 3. 用flex的模式將賽道跟道具值形成一排。 -->
-        <div class="flex">
-            <p>1</p>
-            <!-- for loop 渲染時要戴id，才能去記錄使用者輸入的值要怎麼組成json body -->
-            <div class="flex flex-stretch">
-                <input type="number" id="tentacles" name="tentacles" min="0" max="10" />
-                <input type="number" min="0" max="10" />
-                <input type="number" min="0" max="10" />
-                <input type="number" min="0" max="10" />
-                <input type="number" min="0" max="10" />
-                <input type="number" min="0" max="10" />
-            </div>
-            <div class="flex flex-stretch">
-            <input type="number" min="0" max="10" />
-            </div>
-        </div>
+         
+        <div>
+            <div id="raceList" class=""></div>
 
-        <div class="competitors-input-section">
-            <p>2</p>
-            <input type="number" min="0" max="10" />
-            <input type="number" min="0" max="10" />
-        </div>
-        <div class="competitors-input-section">
-            <p>3</p>
-            <input type="number" min="0" max="10" />
-            <input type="number" min="0" max="10" />
-        </div>
-        <div class="competitors-input-section">
-            <p>4</p>
-            <input type="number" min="0" max="10" />
-            <input type="number" min="0" max="10" />
         </div>
         <button id="submitBtn">Submit</button>
         <h2 class="heading-color">Result</h2>
