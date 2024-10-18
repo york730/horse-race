@@ -1,0 +1,30 @@
+<!-- HTML -->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./web/index.css">
+</head>
+
+<body>
+    <!-- CSS: 1. 先把整個網頁的內容都致中，用container包起來並用flex + column 直立去至中每個元素 -->
+    <div class="container">
+        <h1 class="heading-color">Horse Race Predictor</h1>
+        <!-- CSS: 2. 可選擇的馬選項 3*2 渲染，用 grid + col-3 方式 -->
+        <div id="horseList" class="horse-list"></div>
+        <h2 class="heading-color">Competitors</h2>
+        <!-- CSS: 3. 用flex的模式將賽道跟道具值形成一排。 -->
+         
+        <div>
+            <div id="raceList" class=""></div>
+
+        </div>
+        <button id="submitBtn">Submit</button>
+        <h2 class="heading-color">Result</h2>
+        <div class="result" id="result"></div>
+    </div>
+    <!-- JS -->
+    <script src="./web/script.js"></script>
+</body>
+</html>
