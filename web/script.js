@@ -1,5 +1,7 @@
 
-// TODO: get response and render
+// const requestURL = 'http://127.0.0.1:8000/api/predictor/'
+const requestURL = 'https://playground-eight-psi.vercel.app/api/predictor/'
+
 
 const horses = {
   '1': [3, 4],
@@ -117,29 +119,38 @@ function createPlayers() {
   submitBtn.addEventListener('click', async () => {
 
     const requestBody = getInputValuesAsBody();
-    console.log(requestBody)
-    // resultDiv.innerHTML = `<p style="">Hello World!</p>`;
-    // resultDiv.textContent = JSON.stringify(result, null, 2);
     
     // 發送 POST 請求
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/predictor/', {
-        mode: 'no-cors',
+      const response = await fetch(requestURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody)
       });
-      // TODO: haven't get answer
-      console.log(response)
 
       // 獲取並解析回應
       const responseData = await response.json();
-      console.log("Response:", responseData);
-  
-      // 渲染回應在頁面上
-      resultDiv.innerHTML = `<pre>${JSON.stringify(responseData, null, 2)}</pre>`;
+      const data = responseData.data
+      resultDiv.innerHTML = '';
+
+      for (let i = 0; i < data.length; i++) {
+        // 取出每一個 item
+        const item = data[i];
+      
+        // 創建一個新的 div 來顯示每個項目
+        const itemDiv = document.createElement("div");
+      
+        // 為每個項目生成內容，例如 name 和 values
+        itemDiv.innerHTML = `
+          ${item}
+        `;
+      
+        // 將這個 itemDiv 加入到 resultDiv 中
+        resultDiv.appendChild(itemDiv);
+      }
+
     } catch (error) {
       console.error('Error:', error);
       resultDiv.innerHTML = `<p style="color: red;">Error fetching data.</p>`;

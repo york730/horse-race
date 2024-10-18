@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import request
-
-import json
+from flask import jsonify
+from flask_cors import CORS
+from flask_cors import cross_origin
 
 from race.prediction import *
 from race.predictor import *
@@ -10,6 +11,9 @@ from test import test_data
 
 # Give up Sanic temporarily...
 app = Flask(__name__)
+CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+# TODO: add github page url for CORS.
 
 
 @app.route('/')
@@ -36,14 +40,15 @@ def prediction():
 
 
 @app.route('/api/predictor/', methods=['POST'])
+@cross_origin()
 def predictor():
-    # TODO: try remove no-cors and make response json.
-    data = json.loads(request.data)
+    data = request.json
     data = data.get("data")
     race_prediction = RacePredictor(data)
     response = race_prediction.predict()
-    response = "\n".join(response)
-    return response
+    return jsonify({
+        'data': response
+    })
 
 
 # Debugging Mode
