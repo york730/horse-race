@@ -22,7 +22,7 @@ function createHorseCompetitors() {
   for (let key in horses) {
     const div = document.createElement('div');
     div.classList.add('horse-item');
-    div.innerHTML = `<label>${key}: </label><input type="text" class="input-field" id="input-${key}" value="${horses[key]}" />`;
+    div.innerHTML = `<div class="flex border-color horse-background text-base text-center"><div class="horse-label-background font-white-color horse-padding border-radius-5">${key}</div><div class="font-coffee-color horse-padding" id="horse-${key}">${horses[key]}</div> </div>`;
     horseList.appendChild(div);
   }
 
@@ -34,20 +34,23 @@ function createPlayers() {
   for (let i = 1; i <= 4; i++) {
     // 創建外層 div
     const flexDiv = document.createElement("div");
-    flexDiv.className = "flex";
+    flexDiv.className = "flex between text-base";
 
     // 創建第1個 input 和 p 標籤
+    const p = document.createElement("p");
+    p.textContent = i;
+    p.className = "horse-background font-coffee-color competitor-label-padding border-color";
+
     const input1 = document.createElement("input");
     input1.type = "number";
     input1.min = 0;
     input1.max = 10;
     input1.id = `input-${i}-1`;
-    const p = document.createElement("p");
-    p.textContent = i;
+    input1.className = "h-50";
 
     // 創建第一個 flex-stretch 包含的多個 input
     const stretchDiv1 = document.createElement("div");
-    stretchDiv1.className = "flex flex-stretch";
+    stretchDiv1.className = "flex";
 
     for (let j = 2; j <= 7; j++) {
       const input = document.createElement("input");
