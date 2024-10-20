@@ -41,40 +41,71 @@ function createPlayers() {
     p.textContent = i;
     p.className = "horse-background font-coffee-color competitor-label-padding border-color";
 
+    // 創建第一個 flex-stretch 包含的多個 input
+    const input1Div = document.createElement("div");
+    input1Div.className = "flex flex-align-center";
+
     const input1 = document.createElement("input");
     input1.type = "number";
     input1.min = 0;
     input1.max = 10;
     input1.id = `input-${i}-1`;
-    input1.className = "h-50";
+    input1.className = "h-50 border-color text-center text-sm heading-color";
+    input1Div.appendChild(input1);
 
     // 創建第一個 flex-stretch 包含的多個 input
     const stretchDiv1 = document.createElement("div");
-    stretchDiv1.className = "flex";
+    stretchDiv1.className = "flex flex-align-center";
 
     for (let j = 2; j <= 7; j++) {
+      const numberInputDiv = document.createElement("div");
+      numberInputDiv.className = "number-input"
+
+      // 創建減少數字按鈕
+      const minusButton = document.createElement("button");
+      minusButton.textContent = "-";
+      minusButton.className = "minus";
+      minusButton.onclick = function() {
+        input.stepDown(); // 減少數字
+      };
+
+      // 創建增加數字按鈕
+      const plusButton = document.createElement("button");
+      plusButton.textContent = "+";
+      plusButton.className = "plus";
+      plusButton.onclick = function() {
+        input.stepUp(); // 增加數字
+      };
+
       const input = document.createElement("input");
       input.type = "number";
+      input.value = 0;
       input.min = 0;
       input.max = 10;
       input.id = `input-${i}-${j}`; // 動態生成id
-      stretchDiv1.appendChild(input);
+      
+      numberInputDiv.appendChild(plusButton);
+      numberInputDiv.appendChild(input);
+      numberInputDiv.appendChild(minusButton);
+      
+      stretchDiv1.appendChild(numberInputDiv);
     }
 
     // 創建第二個 flex-stretch 包含1個 input
     const stretchDiv2 = document.createElement("div");
-    stretchDiv2.className = "flex flex-stretch";
+    stretchDiv2.className = "flex flex-align-center";
 
     const input2 = document.createElement("input");
     input2.type = "number";
     input2.min = 0;
     input2.max = 10;
     input2.id = `input-${i}-8`; // 動態生成id
+    input2.className = "h-50 w-input-3 border-color text-center text-sm heading-color"
     stretchDiv2.appendChild(input2);
 
     // 將所有子元素加入外層 div: 賽道、出賽的馬匹、道具、押金
     flexDiv.appendChild(p);
-    flexDiv.appendChild(input1);
+    flexDiv.appendChild(input1Div);
     flexDiv.appendChild(stretchDiv1);
     flexDiv.appendChild(stretchDiv2);
 
@@ -122,6 +153,7 @@ function createPlayers() {
   submitBtn.addEventListener('click', async () => {
 
     const requestBody = getInputValuesAsBody();
+    console.log(requestBody)
     
     // 發送 POST 請求
     try {

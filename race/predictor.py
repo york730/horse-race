@@ -56,8 +56,8 @@ class RacePredictor(object):
                         if effect == 5:
                             extra_step, step = self.effect_choices[5]()
                         else:
-                            extra_step = self.effect_choices[effect] if isinstance(self.effect_choices[effect], list) else \
-                            self.effect_choices[effect](value)
+                            extra_step = random.choice(self.effect_choices[effect]) \
+                                if isinstance(self.effect_choices[effect], list) else self.effect_choices[effect](value)
                 step_counter[key] += self.zero_if_negative(step + extra_step)
         return list(step_counter.values())
 

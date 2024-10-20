@@ -10,6 +10,18 @@ html {
     text-align: center;
 }
 
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+.gap-5 {
+    gap: 0.5rem;
+}
+
 .heading-color {
  color: #9C836A;
 }
@@ -42,6 +54,10 @@ html {
 
 .text-base {
     font-size: 1.5rem;
+}
+
+.text-sm {
+    font-size: 1.25rem;
 }
 
 .text-center {
@@ -78,6 +94,10 @@ html {
     width: 85%;
 }
 
+.w-input-3 {
+    width: 5.5rem;
+}
+
 .h-50 {
     height: 50%;
 }
@@ -104,4 +124,62 @@ html {
     border: solid;
     border-color: #B59376;
     border-radius: 10px;
+}
+
+/* 客製化 input number 輸入與按鈕 */
+/* 將原本的type=number 改為 純text */
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+/* 將原本的按鈕取消 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+}
+  
+.number-input {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #B59376;
+    border-radius: 7px;
+    background-color: #FFFBF8;
+}
+
+.number-input,
+.number-input * {
+box-sizing: border-box;
+}
+
+.number-input button {
+/* outline:none; */
+background-color: transparent;
+-webkit-appearance: none;
+font-size: 1.25rem;
+color: #B59376;
+border: none;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+margin: 0;
+border-radius: 4px;
+/* position: relative; */
+}
+
+.number-input input[type=number] {
+background-color: transparent;
+max-width: 2.75rem;
+padding: .3rem;
+color: #B59376;
+border-top: solid #B59376;
+border-bottom: solid #B59376;
+border-left: transparent;
+border-right: transparent;
+/* border-width: 0 2px; */
+font-size: 1.5rem;
+/* height: 3rem; */
+font-weight: bold;
+text-align: center;
 }
