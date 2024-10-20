@@ -12,6 +12,8 @@ const horses = {
   '6': [2, 4, 6]
 };
 
+const allHorse = Array.from({ length: Object.keys(horses).length }, (v, i) => i + 1);
+
 const requestBodyIndex = ["一號", "二號", "三號", "四號"]
 
 
@@ -34,24 +36,42 @@ function createPlayers() {
   for (let i = 1; i <= 4; i++) {
     // 創建外層 div
     const flexDiv = document.createElement("div");
-    flexDiv.className = "flex between text-base";
+    flexDiv.className = "flex justify-center gap-35 text-base";
 
     // 創建第1個 input 和 p 標籤
-    const p = document.createElement("p");
-    p.textContent = i;
-    p.className = "horse-background font-coffee-color competitor-label-padding border-color";
+    // const p = document.createElement("p");
+    // p.textContent = i;
+    // p.className = "horse-background font-coffee-color competitor-label-padding border-color";
 
     // 創建第一個 flex-stretch 包含的多個 input
     const input1Div = document.createElement("div");
     input1Div.className = "flex flex-align-center";
 
-    const input1 = document.createElement("input");
-    input1.type = "number";
-    input1.min = 0;
-    input1.max = 10;
-    input1.id = `input-${i}-1`;
-    input1.className = "h-50 border-color text-center text-sm heading-color";
-    input1Div.appendChild(input1);
+    const select = document.createElement("select");
+    select.id = `select-${i}`;
+    select.className = "horse-background font-coffee-color competitor-label-padding border-color text-sm"
+
+    allHorse.forEach((horse, index) => {
+      const option = document.createElement("option");
+      option.value = horse;
+      option.text = `${horse}`;
+      // 設定第幾個選項為預設值 (或根據條件動態設置)
+      if (index === (i-1)) {
+        option.selected = true; 
+      }
+
+      select.appendChild(option);
+    });
+
+    // const input1 = document.createElement("input");
+    // input1.type = "number";
+    // input1.min = 0;
+    // input1.max = 10;
+    // input1.id = `input-${i}-1`;
+    // input1.className = "h-50 border-color text-center text-sm heading-color";
+    
+    
+    input1Div.appendChild(select);
 
     // 創建第一個 flex-stretch 包含的多個 input
     const stretchDiv1 = document.createElement("div");
@@ -98,13 +118,14 @@ function createPlayers() {
     const input2 = document.createElement("input");
     input2.type = "number";
     input2.min = 0;
-    input2.max = 10;
+    input2.max = 10000;
+    input2.value = 1;
     input2.id = `input-${i}-8`; // 動態生成id
     input2.className = "h-50 w-input-3 border-color text-center text-sm heading-color"
     stretchDiv2.appendChild(input2);
 
     // 將所有子元素加入外層 div: 賽道、出賽的馬匹、道具、押金
-    flexDiv.appendChild(p);
+    // flexDiv.appendChild(p);
     flexDiv.appendChild(input1Div);
     flexDiv.appendChild(stretchDiv1);
     flexDiv.appendChild(stretchDiv2);
@@ -116,16 +137,16 @@ function createPlayers() {
 
   // 取得所有 input 值並組成 JSON
   function getInputValuesAsBody() {
-    const userInputs = document.querySelectorAll("input[type='number']");
+    const userInputs = document.querySelectorAll("input[type='number'], select");
     const values = {};
 
     userInputs.forEach((input) => {
       values[input.id] = input.value || 0; // 如果輸入為空值，預設為0
     });
-  
+
     const data = {};
     for (let i = 1; i <= 4; i++) {
-      const horseValue = horses[values[`input-${i}-1`]];
+      const horseValue = horses[values[`select-${i}`]];
       data[requestBodyIndex[i-1]] = [
                                   horseValue, 
                                   [
@@ -153,7 +174,6 @@ function createPlayers() {
   submitBtn.addEventListener('click', async () => {
 
     const requestBody = getInputValuesAsBody();
-    console.log(requestBody)
     
     // 發送 POST 請求
     try {
@@ -165,24 +185,19 @@ function createPlayers() {
         body: JSON.stringify(requestBody)
       });
 
-      // 獲取並解析回應
       const responseData = await response.json();
       const data = responseData.data
       resultDiv.innerHTML = '';
 
       for (let i = 0; i < data.length; i++) {
-        // 取出每一個 item
         const item = data[i];
       
-        // 創建一個新的 div 來顯示每個項目
         const itemDiv = document.createElement("div");
       
-        // 為每個項目生成內容，例如 name 和 values
         itemDiv.innerHTML = `
           ${item}
         `;
       
-        // 將這個 itemDiv 加入到 resultDiv 中
         resultDiv.appendChild(itemDiv);
       }
 

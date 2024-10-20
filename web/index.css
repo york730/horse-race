@@ -22,6 +22,10 @@ html {
     gap: 0.5rem;
 }
 
+.gap-35 {
+    gap: 0.35rem;
+}
+
 .heading-color {
  color: #9C836A;
 }
@@ -75,7 +79,7 @@ html {
 }
 
 .competitor-label-padding {
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    padding: 0.35rem 0.35rem 0.35rem 0.35rem;
 }
 
 .flex {
@@ -88,6 +92,10 @@ html {
 
 .between {
     justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
 }
 
 .w-85 {
@@ -119,7 +127,7 @@ html {
 .result {
     width: 60%;
     height: 8rem;
-    padding: 2rem;
+    padding: 0.5rem;
     background-color: #FFFBF8;
     border: solid;
     border-color: #B59376;
@@ -178,7 +186,7 @@ border-bottom: solid #B59376;
 border-left: transparent;
 border-right: transparent;
 /* border-width: 0 2px; */
-font-size: 1.5rem;
+font-size: 1.25rem;
 /* height: 3rem; */
 font-weight: bold;
 text-align: center;
