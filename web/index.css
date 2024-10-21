@@ -1,0 +1,204 @@
+/* 寫得很亂 hahahha */
+/* 因為這次的網站專案不複雜，還不需要使用到 @media 去定義不同的長寬顯示不同的大小 */
+
+html {
+    background-color: #FFE3CA;
+}
+
+/* 學Bootstrap 方式定義一個container */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* 這類型僅有一個style是學TailwindCSS的方式，用疊加class的方式給予不同的styles */
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+.gap-5 {
+    gap: 0.5rem;
+}
+
+.gap-35 {
+    gap: 0.35rem;
+}
+
+.heading-color {
+ color: #9C836A;
+}
+
+.border-color {
+    border: solid;
+    border-color: #B59376;
+    border-radius: 7px;
+}
+
+.border-radius-5 {
+    border-radius: 5px;
+}
+
+.horse-label-background {
+    background-color: #9C836A;
+}
+
+.font-white-color {
+    color: #FFFBF8;
+}
+
+.horse-background {
+    background-color: #FFFBF8;
+}
+
+.font-coffee-color {
+    color: #9C836A;
+}
+
+.text-base {
+    font-size: 1.5rem;
+}
+
+.text-sm {
+    font-size: 1.25rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.horse-padding {
+    padding: 0.25rem 1rem 0.25rem 1rem;
+}
+
+.horse-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.competitor-label-padding {
+    padding: 0.35rem 0.35rem 0.35rem 0.35rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-stretch{
+    align-items: stretch;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.w-85 {
+    width: 85%;
+}
+
+.w-input-3 {
+    width: 5.5rem;
+}
+
+.h-50 {
+    height: 50%;
+}
+
+.raceList {
+    margin-bottom: 1.25rem;
+}
+
+/* 這種一個class 有包含許多css屬性，就是最典型純手工的css寫法，當一個div需要很多styles時，我會把他全部都寫在一起 */
+/* 或是當你需要自定義跟客製化的 css時，而不希望一個div用到太多TailwindCSS的疊加方式怕太複雜，就全寫一起。 */
+.submitBtn {
+    padding: 0.4rem 1.25rem 0.4rem 1.25rem;
+    background-color: #9C836A;
+    color: #FFFBF8;
+    font-size: 1.5rem;
+    border: solid;
+    border-color: #B59376;
+    border-radius: 10px;
+}
+
+.result {
+    width: 20rem;
+    height: 8rem;
+    padding: 0.75rem;
+    background-color: #FFFBF8;
+    border: solid;
+    border-color: #B59376;
+    border-radius: 10px;
+}
+
+/* 當你需要改到HTML原生的css時，是要透過這種方式: 
+    1.先把原生的style改成不顯示或者取消效果。 
+    2. 再自己定義css去取代原生的style。 */
+
+/* 客製化 input number 輸入與按鈕 */
+/* 將原本的type=number 改為 純text */
+input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+/* 將原本的按鈕取消 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+}
+  
+.number-input {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #B59376;
+    border-radius: 7px;
+    background-color: #FFFBF8;
+}
+
+.number-input,
+.number-input * {
+box-sizing: border-box;
+}
+
+.number-input button {
+/* outline:none; */
+background-color: transparent;
+-webkit-appearance: none;
+font-size: 1.25rem;
+color: #B59376;
+border: none;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+margin: 0;
+border-radius: 4px;
+/* position: relative; */
+}
+
+.number-input input[type=number] {
+background-color: transparent;
+max-width: 2.75rem;
+padding: .3rem;
+color: #B59376;
+border-top: solid #B59376;
+border-bottom: solid #B59376;
+border-left: transparent;
+border-right: transparent;
+/* border-width: 0 2px; */
+font-size: 1.25rem;
+/* height: 3rem; */
+font-weight: bold;
+text-align: center;
+}
