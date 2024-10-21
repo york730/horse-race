@@ -1,28 +1,43 @@
-<!-- HTML -->
+<!-- 實作邏輯：
+(1). HTML (頁面架構): index.html
+(2). CSS (裝飾頁面): /web/index.css
+(3). JS (讓頁面動起來(功能)、動態生產頁面內容): script.js
+
+-->
+
+
+<!-- (1). HTML -->
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS -->
+    <!-- (2). CSS -->
     <link rel="stylesheet" href="./web/index.css">
 </head>
 
 <body>
-    <!-- CSS: 1. 先把整個網頁的內容都致中，用container包起來並用flex + column 直立去至中每個元素 -->
+    <!-- CSS: 1. 先把整個網頁的內容都致中，用container包起來並用 display flex + direction column 直立去至中每個元素 -->
     <div class="container">
+        <!-- HTML: 標題 -->
         <h1 class="heading-color">Horse Race Predictor</h1>
         <!-- CSS: 2. 可選擇的馬選項 3*2 渲染，用 grid + col-3 方式 -->
+        <!-- HTML: 不同的馬匹 -->
+        <!-- JS: 動態生成馬匹 -->
         <div id="horseList" class="horse-list"></div>
         <h2 class="heading-color">Competitors</h2>
-        <!-- CSS: 3. 用flex的模式將賽道跟道具值形成一排。 -->
-         
+        <!-- CSS: 3. 用flex 的模式將賽道跟道具值形成一排。 -->
+        <!-- HTML: 每次出賽四個，並且有不同的道具跟押金 -->
+        <!-- JS: 動態生成四個賽道 -->
         <div id="raceList" class="w-85 raceList"></div>
 
+        <!-- HTML: 送出的按鈕 + Call API -->
         <button class="submitBtn" id="submitBtn">Submit</button>
+        
+        <!-- HTML: 取得預測跟計算結果並且渲染 -->
         <h2 class="heading-color">Result</h2>
         <div class="result" id="result"></div>
     </div>
-    <!-- JS -->
+    <!-- (3). JavaScript -->
     <script src="./web/script.js"></script>
 </body>
 </html>

@@ -1,7 +1,11 @@
+/* 寫得很亂 hahahha */
+/* 因為這次的網站專案不複雜，還不需要使用到 @media 去定義不同的長寬顯示不同的大小 */
+
 html {
     background-color: #FFE3CA;
 }
 
+/* 學Bootstrap 方式定義一個container */
 .container {
     display: flex;
     flex-direction: column;
@@ -10,6 +14,7 @@ html {
     text-align: center;
 }
 
+/* 這類型僅有一個style是學TailwindCSS的方式，用疊加class的方式給予不同的styles */
 .flex-col {
     flex-direction: column;
 }
@@ -114,6 +119,8 @@ html {
     margin-bottom: 1.25rem;
 }
 
+/* 這種一個class 有包含許多css屬性，就是最典型純手工的css寫法，當一個div需要很多styles時，我會把他全部都寫在一起 */
+/* 或是當你需要自定義跟客製化的 css時，而不希望一個div用到太多TailwindCSS的疊加方式怕太複雜，就全寫一起。 */
 .submitBtn {
     padding: 0.4rem 1.25rem 0.4rem 1.25rem;
     background-color: #9C836A;
@@ -133,6 +140,10 @@ html {
     border-color: #B59376;
     border-radius: 10px;
 }
+
+/* 當你需要改到HTML原生的css時，是要透過這種方式: 
+    1.先把原生的style改成不顯示或者取消效果。 
+    2. 再自己定義css去取代原生的style。 */
 
 /* 客製化 input number 輸入與按鈕 */
 /* 將原本的type=number 改為 純text */
